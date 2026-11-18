@@ -1,12 +1,34 @@
-streamlit>=1.30.0
-folium>=0.15.0
-streamlit-folium>=0.18.0
-requests>=2.31.0
-pyyaml>=6.0
+# PathSnap — map-matching system (PES University ML hackathon)
+# Python 3.12. Install with:  pip install -r requirements.txt
+
+# --- core numerics / data handling ---
+numpy
+pandas
+scipy
+
+# --- modelling ---
+scikit-learn
+lightgbm==4.6.0   # 4.7.0's Windows binary crashed on fit in this environment
+optuna            # Bayesian hyperparameter search (Phase 3)
+joblib            # model persistence
+
+# --- geospatial: projection, geometry, spatial indexing ---
+pyproj            # per-trip UTM transforms (the dataset spans 23 zones)
+shapely
+rtree             # R-tree index for candidate arc generation
+networkx          # arc-adjacency graph for the HMM stage
+
+# --- visualisation ---
+matplotlib
+folium>=0.15.0    # trip inspection maps, and the Phase 6 UI
+
+# --- storage / tooling ---
+pyarrow           # parquet for the 1.23M-row training pairs
+tqdm
+jupyter
 
 # --- Phase 6 evaluator UI (ui/) ---
 streamlit>=1.30.0
-folium>=0.15.0
 streamlit-folium>=0.18.0
 requests>=2.31.0
 pyyaml>=6.0
