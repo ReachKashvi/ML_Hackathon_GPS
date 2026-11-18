@@ -1,0 +1,7 @@
+model,verdict,runs,points
+classifier,label_ambiguous: stopped on reverse-twin arcs,298,503
+classifier,model_error: junction timing / other arc,189,510
+classifier,model_error: wrong direction while moving,324,436
+phase4_hmm,label_ambiguous: stopped on reverse-twin arcs,6,680
+phase4_hmm,model_error: junction timing / other arc,28,110
+phase4_hmm,model_error: wrong direction while moving,17,28

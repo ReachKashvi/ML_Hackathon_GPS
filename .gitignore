@@ -45,3 +45,6 @@ __pycache__/
 .ipynb_checkpoints/
 .venv/
 venv/
+# --- hmm/ experiments: regenerable tables and run logs ---
+outputs/hmm/*.parquet
+outputs/hmm/*.log

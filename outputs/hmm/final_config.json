@@ -1,0 +1,33 @@
+{
+  "name": "E5 context features + Phase 4 decoder",
+  "emissions": "feat",
+  "config": {
+    "sigma": 20.0,
+    "beta": 16.0,
+    "same_arc": "abs",
+    "dist": "gauss",
+    "emission": "raw"
+  },
+  "selected_on": "5-fold GroupKFold over the 80 training trips, nested selection per family",
+  "evidence": {
+    "baseline_fold_mean": 0.9156,
+    "selected_fold_mean": 0.9196,
+    "delta": 0.004,
+    "folds_better": 3,
+    "folds_worse": 2,
+    "trips_improved": 50,
+    "trips_regressed": 23,
+    "classifier_top1_pooled_base": 0.7585,
+    "classifier_top1_pooled_feat": 0.8802,
+    "rejected": {
+      "E1_signed": -0.0175,
+      "E2_uturn": -0.0236,
+      "E3_laplace": -0.017,
+      "E4_norm": -0.0021,
+      "E4_platt": -0.0004,
+      "H_signed_tol": -0.003
+    }
+  },
+  "student_test_used_for_selection": false,
+  "chosen_at": "2026-11-18T16:21:14"
+}
