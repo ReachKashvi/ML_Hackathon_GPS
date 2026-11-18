@@ -28,3 +28,20 @@ Student folder/
 PathSnap_student_materials.zip
 Student folder.zip
 drive-download-*.zip
+# --- dataset: provided by the organisers, 91 MB, not ours to redistribute ---
+data/
+
+# --- large regenerable artefacts (rebuild with the scripts in scripts/) ---
+outputs/*.parquet
+outputs/predictions/
+outputs/models/
+outputs/maps/
+outputs/hpo.db
+outputs/logs/
+
+# --- python ---
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
