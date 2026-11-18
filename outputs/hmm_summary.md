@@ -38,16 +38,25 @@ _fixed_ = points the classifier got wrong and the HMM got right; _broke_ = the r
 
 ## Observed failure modes
 
-1. **Trip 00000077 — a lapping track against monotone labels (the dominant error).**
+1. **Trip 00000077 — long stops on reverse-twin arcs (the dominant error).**
    This one trip holds **818 of the 1,392 HMM errors (59%)** across all 19,160 points.
    671 of those 818 sit in just four contiguous runs (the longest 275 points), concentrated
    mid-trip (error rate 0.017 in the first fifth, 0.25–0.36 in the middle, 0.10 in the last).
-   Its GPS track is **2.27× the route length**: the vehicle laps a route stored as a simple
-   path. That is exactly the loop-back limitation flagged for the Step 8 alignment —
-   monotone progress pushes later laps onto route positions reached only later, so the
-   *labels* are likely wrong there, not just the decoder. Long contiguous error runs, rather
-   than scattered junction slips, support that reading. **Excluding this trip, HMM Top-1 on
-   the other nine is 0.9624.**
+
+   *Correction (HMM improvement analysis, `outputs/hmm/trip77/`):* an earlier version of
+   this summary attributed these errors to the vehicle lapping the route. That is wrong.
+   The GPS track is 2.27× the route length only at 1 s sampling; subsampled every 30 s it
+   is 0.97× (15.5 km vs 16.0 km), so the excess is GPS jitter (median 8.6 m per 1 s step),
+   not extra laps. The error runs are **stops** of up to 4.5 minutes (speed over a ±10 s
+   window < 1 m/s) on two-way roads, where the HMM picks the arc's reverse twin (same
+   geometry, opposite direction). In the two largest runs the route goes out along an arc
+   and back along its twin, and the GPS shows the vehicle arriving, waiting, then driving
+   back; the labels keep it on the outbound arc throughout, including the drive back,
+   because the label alignment uses distance only and keeps the earlier route position when
+   the two are equidistant. **680 of the 818 errors (83%) are such stopped reverse-twin
+   points, where the direction cannot be observed and the label is ambiguous**; 138 are
+   ordinary model errors. The trip stays in every headline number. Excluding it, HMM Top-1
+   on the other nine is 0.9624.
 
 2. **Junction timing — right road, one arc early or late.** Of a 966-point sample of HMM
    errors, **61% pick an arc within 60 m of road distance of the truth**. The decoder has

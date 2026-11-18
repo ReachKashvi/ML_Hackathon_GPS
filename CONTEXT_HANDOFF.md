@@ -80,8 +80,10 @@ student_test (Top-1 0.8159, log loss 0.2064) → **keep untuned lgbm**.
 - Params: **σ=20, β=16, position-aware distance**, tuned on 20 OOF training trips (ridge: β/σ² ≈ 0.04).
 - 10/10 trips improved; no regressions; all validation checks PASS; no student_test leakage.
 - Same 0.9273 **without** ground-truth route-break resets (production-realistic).
-- Trip **00000077** holds 59% of remaining errors (laps the route, 2.27× length; likely label/alignment
-  issue). Excluding it: **0.9624**. Other errors: junction timing (61% within 60 m of truth).
+- Trip **00000077** holds 59% of remaining errors. It does **not** lap the route: the 2.27× length ratio
+  is 1 s GPS jitter (0.97× when subsampled every 30 s). 83% of its errors are long stops on two-way
+  roads where the HMM picks the reverse-twin arc and the direction-blind label alignment is ambiguous
+  (`outputs/hmm/trip77/`). Excluding it: **0.9624**. Other errors: junction timing (61% within 60 m of truth).
 
 ## Decisions / deviations from the original briefs (all intentional)
 
@@ -106,20 +108,19 @@ student_test (Top-1 0.8159, log loss 0.2064) → **keep untuned lgbm**.
 
 ## Git state
 
-Pushed (4 commits on `main`): Phase 1–2 code + results, Phase 6 UI (`ui/`, pre-existing, from the user),
-requirements fix, remote-HPO bundle (training/student_test parquets, `lgbm.joblib`, `data/student_test`).
+Everything through Phase 4, the HMM improvement experiments (`hmm/`, `outputs/hmm/`), the FastAPI
+backend (`api/`) and the UI fixes is committed and pushed on `main`. The evaluator test data is in
+`data/evaluator_test/` locally only (gitignored; the repo is public and the data includes `.route`).
+Commit attribution line: `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
 
-**Not yet committed**: `src/hmm_viterbi.py`, `scripts/19_tune_hmm.py`, `scripts/20_eval_hmm.py`,
-`outputs/best_hpo_params.json`, `hpo_trials.csv`, `figures/hpo_improvement.png`, all `hmm_*` outputs,
-modified `test_results.csv`. Commit attribution line: `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+## Status of the former next steps
 
-## Open next steps
-
-1. Commit + push Phase 3/4 work.
-2. Optionally investigate trip 00000077 labels (lapping vs monotone alignment).
-3. Production inference path for unseen trips: load → candidates → features → lgbm → `decode_trip(use_breaks=False)`.
-4. API / UI (a Streamlit UI already exists under `ui/`; check its `api_client.py` contract).
-5. Read the hackathon PDFs for deliverable/report requirements.
+1. Phase 3/4 committed and pushed.
+2. Trip 00000077 investigated: see `outputs/hmm/hmm_improvement_report.md`.
+3. Production inference path: `api/inference.py` (verified identical to the stored student_test results).
+4. API + UI: `api/app.py` serves the contract in `ui/api_client.py`; run instructions in `README.md`.
+   Evaluator test set via the API: Top-1 0.9543 pooled.
+5. Hackathon PDFs read; the report structure is in `Deliverables.pdf`.
 
 ## Working style the user prefers
 
