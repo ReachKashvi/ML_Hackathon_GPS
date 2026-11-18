@@ -1,0 +1,31 @@
+# PathSnap API (Laptop 1) configuration.
+# Paths are relative to the repository root unless absolute.
+
+# Folder of trip sub-folders (<id>/<id>.track|.nodes|.arcs[|.route]).
+# On evaluation day point this at the evaluator's trips, or set the
+# PATHSNAP_DATA_DIR environment variable instead of editing this file.
+data_dir: data/student_test
+
+# Emission model. Phase 2 lgbm (300 trees, lr 0.05, 63 leaves), trained on
+# all 80 training trips on the 23 features of src/features.py.
+model: outputs/models/lgbm.joblib
+model_name: "PathSnap: LightGBM emissions + HMM/Viterbi (sigma=20 m, beta=16)"
+
+candidates:
+  K: 10
+  R: 50.0
+
+# Viterbi decoder (hmm/hmm_v2.py Config). These values are the Phase 4
+# decoder that scored Top-1 0.9273 on student_test.
+hmm:
+  sigma: 20.0
+  beta: 16.0
+  same_arc: abs
+  dist: gauss
+  emission: raw
+
+# Road arcs drawn on the UI map: both endpoints within this distance of the track.
+road_network_radius_m: 150
+
+# Keep each trip's result in memory after its first request.
+cache_predictions: true

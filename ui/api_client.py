@@ -169,6 +169,7 @@ class MockAPIClient:
 
     def _find_trip_dir(self, trip_id: str) -> Optional[str]:
         search_paths = [
+            os.path.join("data", "student_test", trip_id),
             os.path.join("Student folder", "Student folder", "student_test", trip_id),
             os.path.join("Student folder", "student_test", trip_id),
             os.path.join("student_test", trip_id),

@@ -27,7 +27,11 @@ pyarrow           # parquet for the 1.23M-row training pairs
 tqdm
 jupyter
 
-# --- Phase 6 evaluator UI (ui/) ---
+# --- API (api/, Laptop 1) ---
+fastapi>=0.110
+uvicorn>=0.29
+
+# --- evaluator UI (ui/, Laptop 2) ---
 streamlit>=1.30.0
 streamlit-folium>=0.18.0
 requests>=2.31.0

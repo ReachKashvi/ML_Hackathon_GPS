@@ -1,5 +1,5 @@
 api_url: "http://localhost:8000"
-request_timeout_sec: 60
+request_timeout_sec: 300
 
 map_defaults:
   zoom_start: 14

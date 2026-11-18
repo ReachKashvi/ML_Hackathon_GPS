@@ -180,9 +180,10 @@ def main():
         st.markdown(
             """
             ### Evaluation Setup Instructions
-            1. Ensure **Laptop 1** is running the FastAPI server on port `8000`:
+            1. Ensure **Laptop 1** is running the FastAPI server on port `8000`
+               (from the repository root):
                ```bash
-               uvicorn app:app --host 0.0.0.0 --port 8000
+               python -m uvicorn app:app --app-dir api --host 0.0.0.0 --port 8000
                ```
             2. Ensure both laptops are on the same Wi-Fi / LAN network.
             3. Enter Laptop 1's local IP address into the sidebar (e.g., `http://192.168.1.42:8000`).
@@ -255,17 +256,21 @@ def main():
         top1 = metrics.get("top1_accuracy", 0.0)
         continuity = metrics.get("route_continuity", 0.0)
         n_gps = metrics.get("n_gps_points", len(pred.get("gps_points", [])))
+        n_arcs = metrics.get("n_predicted_arcs", len(pred.get("predicted_arcs", [])))
         inf_time = metrics.get("inference_time_sec", 0.0)
 
-        top1_display = f"{top1 * 100:.2f}%" if isinstance(top1, (int, float)) and 0 <= top1 <= 1 else f"{top1}"
-        continuity_display = f"{continuity * 100:.2f}%" if isinstance(continuity, (int, float)) and 0 <= continuity <= 1 else f"{continuity}"
+        # Top-1 needs ground truth, which only the server holds; it sends null
+        # for a trip without a reference route
+        top1_display = f"{top1 * 100:.2f}%" if isinstance(top1, (int, float)) and 0 <= top1 <= 1 else "N/A"
+        continuity_display = f"{continuity * 100:.2f}%" if isinstance(continuity, (int, float)) and 0 <= continuity <= 1 else "N/A"
         inf_display = f"{inf_time:.2f} s" if isinstance(inf_time, (int, float)) else f"{inf_time}"
 
-        m_col1, m_col2, m_col3, m_col4 = st.columns(4)
+        m_col1, m_col2, m_col3, m_col4, m_col5 = st.columns(5)
         m_col1.metric("🎯 Top-1 Accuracy", top1_display)
         m_col2.metric("🔗 Route Continuity", continuity_display)
         m_col3.metric("📍 GPS Points", n_gps)
-        m_col4.metric("⚡ Inference Time", inf_display)
+        m_col4.metric("🛣️ Predicted Arcs", n_arcs)
+        m_col5.metric("⚡ Inference Time", inf_display)
 
         # Folium Map
         st.markdown("#### Interactive Geographical Map")

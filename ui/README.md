@@ -66,7 +66,7 @@ On **Laptop 1**, open terminal / command prompt and check the local IPv4 address
 ### 2. Configure Laptop 1 API Server
 Ensure Laptop 1 is running FastAPI with host `0.0.0.0` to accept incoming connections across the LAN:
 ```bash
-uvicorn app:app --host 0.0.0.0 --port 8000
+python -m uvicorn app:app --app-dir api --host 0.0.0.0 --port 8000   # from the repository root
 ```
 
 ### 3. Point the UI to Laptop 1
