@@ -1,0 +1,19 @@
+{
+  "classifier_top1_overall": 0.8223382045929019,
+  "hmm_top1_overall": 0.9273486430062631,
+  "delta_top1_overall": 0.10501043841336122,
+  "hmm_top1_overall_no_route_resets": 0.9273486430062631,
+  "classifier_mean_per_trip_top1": 0.8380892626805622,
+  "hmm_mean_per_trip_top1": 0.9418081044737743,
+  "classifier_continuity": 0.9025049893247706,
+  "hmm_continuity": 0.9823474712054936,
+  "n_trips_helped": 10,
+  "n_trips_hurt": 0,
+  "n_trips_tied": 0,
+  "n_points_scored": 19160,
+  "n_points_total": 19160,
+  "n_points_coasted": 0,
+  "sigma_trans": 20.0,
+  "beta": 16.0,
+  "use_position": true
+}
