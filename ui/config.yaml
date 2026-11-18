@@ -1,0 +1,11 @@
+api_url: "http://localhost:8000"
+request_timeout_sec: 60
+
+map_defaults:
+  zoom_start: 14
+  tiles: "OpenStreetMap"
+
+colors:
+  gps_points: "#2E7DFF"
+  predicted_route: "#E24B4A"
+  road_network: "#999999"

@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Streamlit
+.streamlit/
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Large archives and video files
+*.zip
+*.mp4
+*.rar
+*.7z
+
+# Raw dataset folder (large student archives)
+Student folder/
+PathSnap_student_materials.zip
+Student folder.zip
+drive-download-*.zip
