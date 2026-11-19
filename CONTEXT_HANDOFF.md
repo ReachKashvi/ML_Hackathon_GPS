@@ -102,7 +102,7 @@ student_test (Top-1 0.8159, log loss 0.2064) → **keep untuned lgbm**.
 - RAM: 16.7 GB, often nearly full. Earlier crashes were numpy `MemoryError`. Run models sequentially.
 - Python processes are named **`python3.12.exe`** (not `python.exe`) — filter on that when checking/killing.
 - **Never `Stop-Process` while pip is running** — that corrupted installs before.
-- Background jobs die when the Claude session ends; long scripts write results incrementally.
+- Background jobs die when the terminal session ends; long scripts write results incrementally.
 - Feed LightGBM C-contiguous numpy, not pandas slices.
 - Read `trip_id` from CSV with `dtype={"trip_id": str}` (zero padding).
 
@@ -111,8 +111,6 @@ student_test (Top-1 0.8159, log loss 0.2064) → **keep untuned lgbm**.
 Everything through Phase 4, the HMM improvement experiments (`hmm/`, `outputs/hmm/`), the FastAPI
 backend (`api/`) and the UI fixes is committed and pushed on `main`. The evaluator test data is in
 `data/evaluator_test/` locally only (gitignored; the repo is public and the data includes `.route`).
-Commit attribution line: `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
-
 ## Status of the former next steps
 
 1. Phase 3/4 committed and pushed.
